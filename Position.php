@@ -4,8 +4,8 @@
     public $y;
     
     function __construct($x, $y){
-      $x = $x;
-      $y = $y;
+      $this->x = $x;
+      $this->y = $y;
     }
   }
 ?>

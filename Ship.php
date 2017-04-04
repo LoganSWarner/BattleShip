@@ -6,25 +6,25 @@
     private $name;
 
     function __construct($length, $name){
-      $length = $length;
-      $sunk = false;
-      $num_hits = 0;
-      $name = $name;
+      $this->length = $length;
+      $this->sunk = false;
+      $this->num_hits = 0;
+      $this->name = $name;
     }
 
     public function hit(){
-      $num_hit += 1;
-      if($num_hits == $length){
-        $sunk = true;
+      $this->num_hit += 1;
+      if($this->num_hits == $this->length){
+        $this->sunk = true;
       }
     }
 
     public function get_length(){
-      return $length;
+      return $this->length;
     }
 
     public function is_sunk(){
-      return $sunk;
+      return $this->sunk;
     }
   }
 ?>
