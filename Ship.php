@@ -13,7 +13,7 @@
     }
 
     public function hit(){
-      $this->num_hit += 1;
+      $this->num_hits += 1;
       if($this->num_hits == $this->length){
         $this->sunk = true;
       }
