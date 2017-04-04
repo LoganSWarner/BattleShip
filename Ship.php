@@ -5,25 +5,25 @@
     private $num_hits;
     private $name;
 
-    public Ship($length, $name){
+    function __construct($length, $name){
       $length = $length;
       $sunk = false;
       $num_hits = 0;
       $name = $name;
     }
 
-    public hit(){
+    public function hit(){
       $num_hit += 1;
       if($num_hits == $length){
         $sunk = true;
       }
     }
 
-    public get_length(){
+    public function get_length(){
       return $length;
     }
 
-    public is_sunk(){
+    public function is_sunk(){
       return $sunk;
     }
   }
