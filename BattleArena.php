@@ -20,16 +20,17 @@
         $planned_positions[$i] = clone $position;
         if($direction === Direction::RIGHT)
           $position->x++;
-        elseif($direction === Direction::DOWN)
-          $position->y++;
         else
-          return false;
+          $position->y++;
       }
-      for($i = 0; $i < sizeof($planned_positions); $i++){
-        $current_position = $planned_positions[$i];
-        $this->ship_positions[(string) $current_position] = $ship;
-      }
+      $this->mark_ship_coordinates($planned_positions, $ship);
       return true;
+    }
+
+    private function mark_ship_coordinates($positions, $ship){
+      for($i = 0; $i < sizeof($positions); $i++){
+        $this->ship_positions[(string) $positions[$i]] = $ship;
+      }
     }
 
     public function has_ship_at($position){
