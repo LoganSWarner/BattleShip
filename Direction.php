@@ -1,5 +1,5 @@
 <?php
-  class Direction extends SplEnum{
+  class Direction{
      const DOWN=0;
      const RIGHT=1;
   }
