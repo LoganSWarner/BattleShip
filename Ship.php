@@ -26,5 +26,9 @@
     public function is_sunk(){
       return $this->sunk;
     }
+
+    public function get_name(){
+      return $this->name;
+    }
   }
 ?>

@@ -39,4 +39,23 @@ final class BattleArenaTests extends TestCase{
     $this->assertFalse($this->arena->has_ship_at(new Position(1, 'B')));
   }
 
+  public function testPlaceNoOutOfBounds(){
+    $this->arena->place_ship(new Position(9, 'A'),
+                             new Ship(5, "Carrier"),
+                             Direction::DOWN);
+    $this->assertFalse($this->arena->has_ship_at(new Position(9, 'A')));
+  }
+
+  public function testSinkCarrier(){
+    $carrier = new Ship(5, "Carrier");
+    $this->arena->place_ship(new Position(2, 'A'),
+                             $carrier,
+                             Direction::DOWN);
+    $this->arena->hit(new Position(2, 'A'));
+    $this->arena->hit(new Position(2, 'B'));
+    $this->arena->hit(new Position(2, 'C'));
+    $this->arena->hit(new Position(2, 'D'));
+    $this->arena->hit(new Position(2, 'E'));
+    $this->assertTrue($carrier->is_sunk());
+  }
 }

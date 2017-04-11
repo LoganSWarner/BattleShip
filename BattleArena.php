@@ -15,6 +15,8 @@
 
     public function place_ship($position, $ship, $direction){
       for($i = 0; $i < $ship->get_length(); $i++){
+        if(!$this->position_in_area($position))
+          return false;
         if($this->has_ship_at($position))
           return false;
         $planned_positions[$i] = clone $position;
@@ -27,6 +29,13 @@
       return true;
     }
 
+    private function position_in_area($position){
+      $numeric_y = $this->numeric_y($position->y);
+      $in_area = $position->x > 0 && $position->x < $this->width;
+      $in_area = $in_area && $numeric_y > 0 && $numeric_y < $this->height;
+      return $in_area;
+    }
+
     private function mark_ship_coordinates($positions, $ship){
       for($i = 0; $i < sizeof($positions); $i++){
         $this->ship_positions[(string) $positions[$i]] = $ship;
@@ -35,6 +44,32 @@
 
     public function has_ship_at($position){
       return isset($this->ship_positions[(string) $position]);
+    }
+
+    public function hit($position){
+      if(!$this->position_in_area($position))
+        return "Out of bounds";
+      $hit_record = "";
+      $ship = $this->get_ship_at($position);
+      if($ship !== NULL){
+        $ship->hit();
+        $hit_record = $ship->get_name();
+      }else
+        $hit_record = "Miss";
+      $this->hit_record_grid[$position->x][ord($position->y) - 64] =
+        $hit_record;
+      return $ship;
+    }
+
+    private function get_ship_at($position){
+      if($this->has_ship_at($position))
+        return $this->ship_positions[(string) $position];
+      else
+        return NULL;
+    }
+
+    private function numeric_y($y){
+      return ord($y) - 64;
     }
   }
 ?>
