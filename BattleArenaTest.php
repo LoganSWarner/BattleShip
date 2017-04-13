@@ -40,7 +40,7 @@ final class BattleArenaTests extends TestCase{
   }
 
   public function testPlaceNoOutOfBounds(){
-    $this->arena->place_ship(new Position(9, 'A'),
+    $this->arena->place_ship(new Position(1, 'J'),
                              new Ship(5, "Carrier"),
                              Direction::DOWN);
     $this->assertFalse($this->arena->has_ship_at(new Position(9, 'A')));
