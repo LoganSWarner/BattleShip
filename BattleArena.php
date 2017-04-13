@@ -48,7 +48,7 @@
 
     public function hit($position){
       if(!$this->position_in_area($position))
-        return "Out of bounds";
+        return "Miss";
       $hit_record = "";
       $ship = $this->get_ship_at($position);
       if($ship !== NULL){
@@ -58,7 +58,7 @@
         $hit_record = "Miss";
       $this->hit_record_grid[$position->x][ord($position->y) - 64] =
         $hit_record;
-      return $ship;
+      return strtoupper($hit_record);
     }
 
     private function get_ship_at($position){
