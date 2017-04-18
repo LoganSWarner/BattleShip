@@ -3,11 +3,15 @@
 class ArenaController{
   private $arena;
 
-  public function __construct($is_new){
-    if($is_new)
+  public function __construct(){
+    //if(file_exists(session_id().'.bs'))
+      //$this->load_arena();
+    //else
       $this->arena = new BattleArena(10, 10);
-    else
-      $this->load_arena();
+  }
+
+  public function reset_arena(){
+    $this->arena = new BattleArena(10, 10);
   }
 
   public function hit($x, $y){
