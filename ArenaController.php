@@ -1,12 +1,14 @@
 <?php
 
+require 'BattleArena.php';
+
 class ArenaController{
   private $arena;
 
   public function __construct(){
-    //if(file_exists(session_id().'.bs'))
-      //$this->load_arena();
-    //else
+    if(file_exists(session_id().'.bs'))
+      $this->load_arena();
+    else
       $this->arena = new BattleArena(10, 10);
   }
 
@@ -36,5 +38,4 @@ class ArenaController{
     file_put_contents($filename, serialize($this->arena));
   }
 }
-
 ?>

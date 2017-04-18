@@ -1,9 +1,5 @@
 <?php
 
-require 'Position.php';
-require 'Ship.php';
-require 'Direction.php';
-require 'BattleArena.php';
 require 'ArenaController.php';
 use PHPUnit\Framework\TestCase;
 
