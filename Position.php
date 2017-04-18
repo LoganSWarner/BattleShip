@@ -12,7 +12,7 @@
       try{
         return (string)$this->x . ',' . (string)$this->y;
       }catch(Exception $exception){
-        return "ERROR";
+        return 'ERROR';
       }
     }
   }

@@ -9,7 +9,7 @@
       $this->width = $width;
       $this->height = $height;
       $this->hit_record_grid = array_fill(0, $height,
-                                          array_fill(0, $width, "Unknown"));
+                                          array_fill(0, $width, 'Unknown'));
       $this->ship_positions = [];
     }
 
@@ -31,8 +31,8 @@
 
     private function position_in_area($position){
       $numeric_y = $this->numeric_y($position->y);
-      $in_area = $position->x > 0 && $position->x < $this->width;
-      $in_area = $in_area && $numeric_y > 0 && $numeric_y < $this->height;
+      $in_area = $position->x >= 0 && $position->x < $this->width;
+      $in_area = $in_area && $numeric_y >= 0 && $numeric_y < $this->height;
       return $in_area;
     }
 
@@ -48,17 +48,22 @@
 
     public function hit($position){
       if(!$this->position_in_area($position))
-        return "Miss";
-      $hit_record = "";
+        return 'Miss';
+      $hit_record = '';
       $ship = $this->get_ship_at($position);
       if($ship !== NULL){
         $ship->hit();
         $hit_record = $ship->get_name();
       }else
-        $hit_record = "Miss";
-      $this->hit_record_grid[$position->x][ord($position->y) - 64] =
+        $hit_record = 'Miss';
+      $hit_record = strtoupper($hit_record);
+      $this->hit_record_grid[$position->x][$this->numeric_y($position->y)] =
         $hit_record;
-      return strtoupper($hit_record);
+      return $hit_record;
+    }
+
+    public function get_hit_record_grid(){
+      return $this->hit_record_grid;
     }
 
     private function get_ship_at($position){
@@ -69,7 +74,7 @@
     }
 
     private function numeric_y($y){
-      return ord($y) - 64;
+      return ord($y) - 65;
     }
   }
 ?>
