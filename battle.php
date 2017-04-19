@@ -1,9 +1,11 @@
 <?php
 session_start();
-require 'ArenaController.php';
-$arena_controller = new ArenaController();
+require 'BattleArena.php';
 
 if(!isset($_SESSION['Started'])) {
+  $arena = new BattleArena(10, 10);
+  $_SESSION['arena'] = $arena;
+
   echo "AVAILABLE\r\n";
   $us_first = rand(0, 1);
   $_SESSION['us_first'] = $us_first;
