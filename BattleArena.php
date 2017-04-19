@@ -1,26 +1,22 @@
 <?php
 
-require 'Position.php';
-require 'Direction.php';
-require 'Ship.php';
+require_once 'Position.php';
+require_once 'Board.php';
+require_once 'Direction.php';
+require_once 'Ship.php';
 
 class BattleArena{
-  private $width;
-  private $height;
-  private $hit_record_grid;
+  private $board;
   private $ship_positions;
 
   public function __construct($width, $height){
-    $this->width = $width;
-    $this->height = $height;
-    $this->hit_record_grid = array_fill(0, $height,
-                                        array_fill(0, $width, 'Unknown'));
+    $this->board = new Board($width, $height);
     $this->ship_positions = [];
   }
 
   public function place_ship($position, $ship, $direction){
     for($i = 0; $i < $ship->get_length(); $i++){
-      if(!$this->position_in_area($position))
+      if(!$this->board->position_on_board($position))
         return false;
       if($this->has_ship_at($position))
         return false;
@@ -34,13 +30,6 @@ class BattleArena{
     return true;
   }
 
-  private function position_in_area($position){
-    $numeric_y = $this->numeric_y($position->y);
-    $in_area = $position->x >= 0 && $position->x < $this->width;
-    $in_area = $in_area && $numeric_y >= 0 && $numeric_y < $this->height;
-    return $in_area;
-  }
-
   private function mark_ship_coordinates($positions, $ship){
     for($i = 0; $i < sizeof($positions); $i++){
       $this->ship_positions[(string) $positions[$i]] = $ship;
@@ -52,7 +41,7 @@ class BattleArena{
   }
 
   public function hit($position){
-    if(!$this->position_in_area($position))
+    if(!$this->board->position_on_board($position))
       return 'MISS';
 
     $hit_record = '';
@@ -62,13 +51,12 @@ class BattleArena{
       $hit_record = strtoupper($ship->get_name());
     }else
       $hit_record = 'MISS';
-    $this->hit_record_grid[$position->x][$this->numeric_y($position->y)] =
-      $hit_record;
+    $this->board->mark_position($position, $hit_record);
     return $hit_record;
   }
 
-  public function get_hit_record_grid(){
-    return $this->hit_record_grid;
+  public function get_grid(){
+    return $this->board->get_grid();
   }
 
   private function get_ship_at($position){
@@ -76,10 +64,6 @@ class BattleArena{
       return $this->ship_positions[(string) $position];
     else
       return NULL;
-  }
-
-  private function numeric_y($y){
-    return ord($y) - 65;
   }
 }
 ?>

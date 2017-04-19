@@ -16,9 +16,9 @@ final class BattleArenaTests extends TestCase{
   }
 
   public function testPlaceCarrier(){
-    $this->arena->place_ship(new Position(1, 'A'),
-                             new Ship(5, "Carrier"),
-                             Direction::DOWN);
+    $this->assertTrue($this->arena->place_ship(new Position(1, 'A'),
+                                               new Ship(5, "Carrier"),
+                                               Direction::DOWN));
     $this->assertTrue($this->arena->has_ship_at(new Position(1, 'A')));
     $this->assertTrue($this->arena->has_ship_at(new Position(1, 'B')));
     $this->assertTrue($this->arena->has_ship_at(new Position(1, 'C')));
@@ -44,12 +44,12 @@ final class BattleArenaTests extends TestCase{
   }
 
   public function testSinkCarrier(){
-    $carrier = new Ship(5, "Carrier");
-    $this->assertEquals($this->arena->hit(new Position(2, 'A')), "MISS");
+    $carrier = new Ship(5, 'Carrier');
+    $this->assertEquals('MISS', $this->arena->hit(new Position(2, 'A')));
     $this->arena->place_ship(new Position(2, 'A'),
                              $carrier,
                              Direction::DOWN);
-    $this->assertEquals($this->arena->hit(new Position(2, 'A')), "CARRIER");
+    $this->assertEquals('CARRIER', $this->arena->hit(new Position(2, 'A')));
     $this->arena->hit(new Position(2, 'B'));
     $this->arena->hit(new Position(2, 'C'));
     $this->arena->hit(new Position(2, 'D'));
