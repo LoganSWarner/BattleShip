@@ -1,6 +1,6 @@
 <?php
 
-require 'Ship.php';
+require_once 'Ship.php';
 use PHPUnit\Framework\TestCase;
 
 final class ShipTests extends TestCase{

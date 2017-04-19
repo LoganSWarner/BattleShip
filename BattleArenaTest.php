@@ -1,9 +1,6 @@
 <?php
 
-require 'Position.php';
-require 'Ship.php';
-require 'Direction.php';
-require 'BattleArena.php';
+require_once 'BattleArena.php';
 use PHPUnit\Framework\TestCase;
 
 final class BattleArenaTests extends TestCase{

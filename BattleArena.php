@@ -53,15 +53,15 @@ class BattleArena{
 
   public function hit($position){
     if(!$this->position_in_area($position))
-      return 'Miss';
+      return 'MISS';
+
     $hit_record = '';
     $ship = $this->get_ship_at($position);
     if($ship !== NULL){
       $ship->hit();
-      $hit_record = $ship->get_name();
+      $hit_record = strtoupper($ship->get_name());
     }else
-      $hit_record = 'Miss';
-    $hit_record = strtoupper($hit_record);
+      $hit_record = 'MISS';
     $this->hit_record_grid[$position->x][$this->numeric_y($position->y)] =
       $hit_record;
     return $hit_record;
