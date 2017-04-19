@@ -24,7 +24,7 @@ class Board{
     return $in_area;
   }
 
-  private function numeric_y($y){
+  public function numeric_y($y){
     return ord($y) - 65;
   }
 

@@ -4,10 +4,11 @@ require_once 'ReadyInfo.php';
 require_once 'Board.php';
 require_once 'BattleArena.php';
 
-$ready_info = unserialize(file_get_contents('BattleShipReadyInfo'));
-
+$filename = '.ReadyInfo'
+$ready_info = unserialize(file_get_contents($filename));
 if($ready_info->ready && !isset($_SESSION['Started'])) {
   $_SESSION['game'] = $ready_info->get_next_game_num();
+  file_put_contents($filename, serialize($ready_info));
   $_SESSION['our_arena'] = new BattleArena(10, 10);
   $_SESSION['opponent_board'] = new Board(10, 10);
 
