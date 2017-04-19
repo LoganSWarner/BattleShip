@@ -1,6 +1,8 @@
+<!doctype html>
+
 <html>
   <head>
-
+    <script src='BattleShipClient.js'></script>
   </head>
   <body>
     <?php

@@ -14,12 +14,12 @@ final class ReadyInfoTests extends TestCase{
     $this->ready_info = NULL;
   }
 
-  public function testNotYetReady(){
-    $this->assertFalse($this->ready_info->ready);
+  public function testInitiallyReady(){
+    $this->assertTrue($this->ready_info->is_ready());
   }
 
-  public function testGetNextGameNum(){
-    $this->assertEquals(0, $this->ready_info->get_next_game_num());
-    $this->assertEquals(1, $this->ready_info->get_next_game_num());
+  public function testNextGame(){
+    $this->assertEquals(0, $this->ready_info->next_game());
+    $this->assertEquals(false, $this->ready_info->next_game());
   }
 }
