@@ -8,7 +8,7 @@ class Board{
 
   public function __construct($width, $height){
     $this->grid = array_fill(0, $height,
-                             array_fill(0, $width, 'UNKNOWN'));
+                             array_fill(0, $width, '-'));
     $this->width = $width;
     $this->height = $height;
   }
@@ -30,6 +30,23 @@ class Board{
 
   public function get_grid(){
     return $this->grid;
+  }
+
+  public function build_display(){
+    $display = '<div class="grid-item"></div>';
+    for($i = 0; $i < $this->width; $i++){
+      $display .= '<div class="grid-item">' . $i .'</div>';
+    }
+    foreach($this->grid as $y => $row){
+      $row_letter = chr($y + 65);
+      $display .= '<div class="grid-item">' . $row_letter . '</div>';
+      foreach($row as $x => $record){
+        $display .= '<div class="grid-item" data-x="' .
+                    $x . '" data-y="' .
+                    $y . '">' . substr($record, 0, 1) .'</div>';
+      }
+    }
+    return $display;
   }
 }
 ?>

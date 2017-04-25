@@ -1,0 +1,17 @@
+.side-by-side {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.battle-grid {
+  display: grid;
+  grid: repeat(11, 5vh) / repeat(11, 5vh);
+}
+
+.grid-item {
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
