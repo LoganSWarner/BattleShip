@@ -26,7 +26,7 @@
       <div id="enemy_board" class="battle-grid">
         <?php
         $board = new Board(10, 10);
-        echo $board->build_dsiplay();
+        echo $board->build_display();
         ?>
       </div>
     </div>
