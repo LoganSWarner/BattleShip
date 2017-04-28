@@ -1,19 +1,20 @@
 <?php
 class ReadyInfo{
   private $ready;
-  private $next_game_num;
+  private $game_num;
 
   public function __construct(){
-    $this->ready = true;
-    $this->next_game_num = 0;
+    $this->ready = false;
+    $this->game_num = 0;
   }
 
-  public function next_game(){
-    if($this->ready){
-      $this->ready = false;
-      return $this->next_game_num++;
-    }else
-      return false;
+  public function current_game(){
+    return $this->game_num;
+  }
+
+  public function advance_games(){
+    $this->game_num++;
+    $this->ready = false;
   }
 
   public function is_ready(){

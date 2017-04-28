@@ -55,8 +55,8 @@ class BattleArena{
     return $hit_record;
   }
 
-  public function get_grid(){
-    return $this->board->get_grid();
+  public function get_board(){
+    return $this->board;
   }
 
   private function get_ship_at($position){

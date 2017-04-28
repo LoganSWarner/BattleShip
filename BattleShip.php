@@ -8,25 +8,28 @@
   <body>
     <?php
     require_once 'ReadyInfo.php';
-    $filename = '.ReadyInfo';
+    require_once 'Game.php';
+    require_once 'BattleArena.php';
+    require_once 'Board.php';
+    session_start();
+    $ready_file = '.ReadyInfo';
     if(file_exists($filename))
-      $ready_info = unserialize(file_get_contents($filename));
+      $ready_info = unserialize(file_get_contents($ready_file));
     else
       $ready_info = new ReadyInfo();
-    file_put_contents($filename, serialize($ready_info));
+    file_put_contents($ready_file, serialize($ready_info));
+    $game_id = $ready_info->current_game();
+    $game = new Game();
     ?>
     <div class="side-by-side">
       <div id="our_board" class="battle-grid">
         <?php
-        require_once 'Board.php';
-        $board = new Board(10, 10);
-        echo $board->build_display();
+        echo $game->our_arena->get_board()->build_display();
         ?>
       </div>
       <div id="enemy_board" class="battle-grid">
         <?php
-        $board = new Board(10, 10);
-        echo $board->build_display();
+        echo $game->enemy_board->build_display();
         ?>
       </div>
     </div>
@@ -48,5 +51,8 @@
         Surrender
       </button>
     </div>
+    <?php
+    file_put_contents('.game_'.$game_id, serialize($game))
+    ?>
   </body>
 </html>
