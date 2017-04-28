@@ -6,7 +6,7 @@ require_once 'BattleArena.php';
 
 $filename = '.ReadyInfo';
 $ready_info = unserialize(file_get_contents($filename));
-if($ready_info->is_ready() && !isset($_SESSION['Started'])){
+if($ready_info->is_ready() && !isset($_SESSION['hash'])){
   $_SESSION['game'] = $ready_info->next_game();
   file_put_contents($filename, serialize($ready_info));
   $_SESSION['our_arena'] = new BattleArena(10, 10);
@@ -18,7 +18,7 @@ if($ready_info->is_ready() && !isset($_SESSION['Started'])){
   echo 'ROLL:'.$us_first."\r\n";
   $hash = hash('md5', $_SERVER['REMOTE_ADDR'].$_SERVER['REQUEST_TIME'].$_SERVER['REQUEST_TIME']);
   echo 'SESSION:'.$hash."\r\n";
-  $_SESSION['Started'] = True;
+  $_SESSION['hash'] = $hash;
 } else
   echo "UNAVAILABLE\r\n";
 ?>

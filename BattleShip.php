@@ -30,5 +30,23 @@
         ?>
       </div>
     </div>
+    <div class="flex-row">
+      <select class="before_ready">
+        <option value="Carrier">Carrier</option>
+        <option value="Battleship">Battleship</option>
+        <option value="Submarine">Submarine</option>
+        <option value="Destroyer">Destroyer</option>
+        <option value="Patrol Boat">Patrol boat</option>
+      <select>
+      <button class="before_ready before_place" onclick="place_ship()">
+        Place ship
+      </button>
+      <button class="before_ready after_place" onclick="ready()">
+        Ready
+      </button>
+      <button class="after_ready after_place" onclick="surrender()">
+        Surrender
+      </button>
+    </div>
   </body>
 </html>
