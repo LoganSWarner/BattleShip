@@ -20,6 +20,7 @@
     file_put_contents($ready_file, serialize($ready_info));
     $game_id = $ready_info->current_game();
     $game = new Game();
+    $_SESSION['game_id'] = $game_id;
     ?>
     <div class="side-by-side">
       <div id="our_board" class="battle-grid">
@@ -35,11 +36,11 @@
     </div>
     <div class="flex-row">
       <select class="before_ready">
-        <option value="Carrier">Carrier</option>
-        <option value="Battleship">Battleship</option>
-        <option value="Submarine">Submarine</option>
-        <option value="Destroyer">Destroyer</option>
-        <option value="Patrol Boat">Patrol boat</option>
+        <option value="5">Carrier</option>
+        <option value="4">Battleship</option>
+        <option value="3">Submarine</option>
+        <option value="3">Destroyer</option>
+        <option value="2">Patrol boat</option>
       <select>
       <button class="before_ready before_place" onclick="place_ship()">
         Place ship
