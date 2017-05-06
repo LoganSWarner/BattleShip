@@ -15,6 +15,12 @@ class BattleArena{
   }
 
   public function place_ship($position, $ship, $direction){
+    while($position_str = array_search($ship, $this->ship_positions)){
+      unset($this->ship_positions[$position_str]);
+      $x = substr($position_str, 0, 1);
+      $y = substr($position_str, 2, 2);
+      $this->board->mark_position(new Position($x, $y), '-');
+    }
     for($i = 0; $i < $ship->get_length(); $i++){
       if(!$this->board->position_on_board($position))
         return false;
@@ -33,6 +39,7 @@ class BattleArena{
   private function mark_ship_coordinates($positions, $ship){
     for($i = 0; $i < sizeof($positions); $i++){
       $this->ship_positions[(string) $positions[$i]] = $ship;
+      $this->board->mark_position($positions[$i], $ship->get_name());
     }
   }
 

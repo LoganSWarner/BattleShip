@@ -1,3 +1,7 @@
+body {
+  background-color: #7799FF;
+}
+
 .side-by-side {
   display: flex;
   flex-direction: row;
@@ -9,9 +13,25 @@
   grid: repeat(11, 5vh) / repeat(11, 5vh);
 }
 
+.friendly {
+  background-color: #5555FF;
+}
+.enemy {
+  background-color: #FF5555;
+}
+
 .grid-item {
   border: 1px solid black;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+button:enabled {
+  cursor: pointer;
+}
+
+.avoid-accidental-click {
+  display: block;
+  margin-left: auto;
 }

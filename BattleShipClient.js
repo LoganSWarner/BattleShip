@@ -1,11 +1,30 @@
 document.addEventListener("DOMContentLoaded", function(){
   setAttributes(".after_ready", "disabled", true);
   removeAttributes(".before_ready", "disabled");
-  refresh_board();
+  decorate_board();
+  var game_listener = new EventSource("battleship_client_teller.php");
+  game_listener.onmessage = process_message;
 });
 
-function refresh_board(){
-  document.querySelectorAll('.grid-item').forEach(function(x){
+function process_message(message){
+  if(message.event === 'won')
+    process_win(message.data);
+  else if(message.event === 'our board update'){
+    document.querySelector('#our_board').outerHTML = message.data;
+    decorate_board();
+  }else if(message.event === 'enemy board update')
+    document.querySelector('#enemy_board').outerHTML = message.data;
+}
+
+function process_win(who){
+  if(who === 'enemy')
+    alert('You lost!');
+  else
+    alert('You won!');
+}
+
+function decorate_board(){
+  document.querySelectorAll('#our_board > .grid-item').forEach(function(x){
     x.addEventListener('click', respond_to_place);
   });
 }
@@ -24,25 +43,24 @@ function removeAttributes(query, attribute){
 
 function respond_to_place(e){
   var x = parseInt(e.target.dataset.x);
-  var y = parseInt(e.target.dataset.y);
-  var ship_name = document.querySelector('option:checked').text;
-  var ship_length = document.querySelector('option:checked').value;
-  var direction = 0;
+  var y = e.target.dataset.y;
+  var ship_name = document.querySelector('#ship > option:checked').text;
+  var ship_length = document.querySelector('#ship > option:checked').value;
+  var direction = document.querySelector('#direction > option:checked').value;
 
-  alert(ship_name);
-  alert(ship_length);
-  if(Number.isInteger(x) && Number.isInteger(y))
+  if(Number.isInteger(x) && y)
     place_ship(x, y, ship_name, ship_length, direction);
 }
 
 function place_ship(x, y, ship_name, ship_length, direction){
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', 'place_ship.php');
-  xhr.onload = function(){
-    alert('Place ship got: ' + xhr.responseText);
-  };
   params = `COORDS=${x}${y}&SHIP_NAME=${ship_name}&SHIP_LENGTH=${ship_length}&DIRECTION=${direction}`;
-  xhr.send(params);
+  xhr.open('GET', `place_ship.php?${params}`, true);
+  xhr.onload = function(){
+    document.querySelector('#our_board').innerHTML = xhr.responseText;
+    decorate_board();
+  };
+  xhr.send(null);
 }
 
 function ready(){

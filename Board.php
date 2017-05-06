@@ -14,7 +14,7 @@ class Board{
   }
 
   public function mark_position($position, $info){
-    $this->grid[$position->x][$this->numeric_y($position->y)] = $info;
+    $this->grid[$this->numeric_y($position->y)][$position->x] = $info;
   }
 
   public function position_on_board($position){
@@ -43,7 +43,7 @@ class Board{
       foreach($row as $x => $record){
         $display .= '<div class="grid-item" data-x="' .
                     $x . '" data-y="' .
-                    $y . '">' . substr($record, 0, 1) .'</div>';
+                    $row_letter . '">' . substr($record, 0, 1) .'</div>';
       }
     }
     return $display;
